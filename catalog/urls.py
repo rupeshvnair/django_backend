@@ -4,7 +4,7 @@ from .views import JewelryItemViewSet
 
 
 router = DefaultRouter()
-router.register(r'items',JewelryItemViewSet)
+router.register(r'jewelry',JewelryItemViewSet)
 
 urlpatterns = [
     path('',include(router.urls)),
