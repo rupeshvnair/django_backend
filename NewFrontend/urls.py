@@ -22,6 +22,7 @@ from django.views.static import serve as static_serve
 from django.urls import re_path
 import os
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('catalog.urls')),
@@ -39,3 +40,4 @@ urlpatterns += [
         'document_root': os.path.join(settings.BASE_DIR, 'static/flutter/assets'),
     }),
 ]
+
