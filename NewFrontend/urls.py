@@ -17,11 +17,25 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
+from django.views.static import serve as static_serve
+from django.urls import re_path
+import os
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('catalog.urls')),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#if settings.DEBUG:
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += [
+    # Serve Flutter app index.html at root
+    path('', TemplateView.as_view(template_name='flutter/index.html')),
+
+    # Serve static Flutter assets
+    re_path(r'^assets/(?P<path>.*)$', static_serve, {
+        'document_root': os.path.join(settings.BASE_DIR, 'static/flutter/assets'),
+    }),
+]
